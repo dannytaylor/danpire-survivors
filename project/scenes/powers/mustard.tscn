@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0dam4u7vsckq"]
+
+[ext_resource type="Script" path="res://scripts/mustard.gd" id="1_cwyfd"]
+[ext_resource type="PackedScene" uid="uid://dhen8csb05vml" path="res://assets/mustard.glb" id="2_obgrs"]
+[ext_resource type="AudioStream" uid="uid://bbd6hddl0tohm" path="res://audio/peashot.ogg" id="3_jwest"]
+
+[node name="mustard" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.158958, 0.215514)
+visible = false
+script = ExtResource("1_cwyfd")
+
+[node name="mesh" parent="." instance=ExtResource("2_obgrs")]
+transform = Transform3D(0.4, 0, 0, 0, -1.74846e-08, -0.4, 0, 0.4, -1.74846e-08, 0, 0.3, 0.491753)
+
+[node name="spawn_timer" type="Timer" parent="."]
+wait_time = 1.6
+
+[node name="shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_jwest")
+volume_db = -9.0
+
+[connection signal="timeout" from="spawn_timer" to="." method="_on_spawn_timer_timeout"]

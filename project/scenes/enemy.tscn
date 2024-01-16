@@ -1,0 +1,213 @@
+[gd_scene load_steps=18 format=3 uid="uid://q3ebgkoa7hfu"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_pbrym"]
+[ext_resource type="AudioStream" uid="uid://bf6peuj2myo5j" path="res://audio/larry_stupid.ogg" id="2_fr82u"]
+[ext_resource type="AudioStream" uid="uid://iwfvoothh05e" path="res://audio/dog_hit.ogg" id="3_37noe"]
+[ext_resource type="PackedScene" uid="uid://do8phgvjr43rn" path="res://assets/pentagram.glb" id="4_1xgvx"]
+[ext_resource type="Texture2D" uid="uid://kflktt2eq0o1" path="res://assets/pentagram_PXL_20240115_095423713.jpg" id="5_nr536"]
+[ext_resource type="AudioStream" uid="uid://58nb120tbr4n" path="res://audio/larry_hateyou.ogg" id="6_wl0nq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0yyu4"]
+radius = 0.2
+height = 0.8
+
+[sub_resource type="PrismMesh" id="PrismMesh_t6ug3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4kcx6"]
+radius = 0.227723
+height = 1.63028
+
+[sub_resource type="Gradient" id="Gradient_sp36m"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 0, 0.301961, 1, 0.760784, 0.764706, 0.780392, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6omgp"]
+gradient = SubResource("Gradient_sp36m")
+width = 48
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hu8yu"]
+radius = 0.316717
+height = 1.61072
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u71q3"]
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.839216, 0.839216, 0.839216, 1)
+albedo_texture = ExtResource("5_nr536")
+
+[sub_resource type="Animation" id="Animation_almyo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plane:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 0.915)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Plane:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.21723, 1.5708, 1.5708)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Plane:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.239758, 0.889877, -2.09603e-08)]
+}
+
+[sub_resource type="Animation" id="Animation_sqce2"]
+resource_name = "bounce"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plane:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(-0.239758, 0.889877, -2.09603e-08), Vector3(0.0114417, 1.20763, 1.00027e-09), Vector3(0.262641, 0.878295, 2.29608e-08), Vector3(0.0114417, 1.20763, 1.00027e-09), Vector3(-0.239758, 0.889877, -2.09603e-08)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Plane:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(1.21723, 1.5708, 1.5708), Vector3(1.5708, 0, 0), Vector3(1.22463, -1.37143, -1.38371), Vector3(1.5708, 0, 0), Vector3(1.21723, 1.5708, 1.5708)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Plane:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector3(1, 1, 0.915), Vector3(1, 1, 1.131), Vector3(1, 1, 0.888), Vector3(1, 1, 1.131), Vector3(1, 1, 0.915)]
+}
+
+[sub_resource type="Animation" id="Animation_er3l2"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plane:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(-0.00965175, 3.14159, 3.14159)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Plane:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.01398, 0), Vector3(0.0114416, -0.110652, 1.18554)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2p1ov"]
+_data = {
+"RESET": SubResource("Animation_almyo"),
+"bounce": SubResource("Animation_sqce2"),
+"die": SubResource("Animation_er3l2")
+}
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_pbrym")
+
+[node name="placeholder" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.4, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_0yyu4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="placeholder"]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0.284629)
+mesh = SubResource("PrismMesh_t6ug3")
+
+[node name="hurt_zone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hurt_zone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.459567, 0)
+shape = SubResource("CapsuleShape3D_4kcx6")
+
+[node name="hp_bar" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 8, 0, 0, 0, 1, 0, -0.3, 0)
+modulate = Color(1, 1, 1, 0.25098)
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+texture = SubResource("GradientTexture1D_6omgp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("CapsuleShape3D_hu8yu")
+
+[node name="death1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_fr82u")
+volume_db = -12.0
+
+[node name="death2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_wl0nq")
+volume_db = -12.0
+
+[node name="dog" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_37noe")
+volume_db = -9.0
+
+[node name="pentagram" parent="." instance=ExtResource("4_1xgvx")]
+transform = Transform3D(-0.4, 0, -3.49691e-08, 0, 0.4, 0, 3.49691e-08, 0, -0.4, 0, 0.0543878, 0)
+
+[node name="Plane" parent="pentagram" index="0"]
+transform = Transform3D(0.938144, 2.23919e-07, 0.316815, 0.346246, -1.25341e-06, -0.858402, 2.23919e-07, 1, -1.14687e-06, -0.239758, 0.889877, -2.09603e-08)
+surface_material_override/0 = SubResource("StandardMaterial3D_u71q3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="pentagram"]
+libraries = {
+"": SubResource("AnimationLibrary_2p1ov")
+}
+autoplay = "bounce"
+
+[connection signal="body_entered" from="hurt_zone" to="." method="_on_hurt_zone_body_entered"]
+[connection signal="finished" from="death1" to="." method="_on_death_finished"]
+[connection signal="finished" from="death2" to="." method="_on_death_2_finished"]
+
+[editable path="pentagram"]

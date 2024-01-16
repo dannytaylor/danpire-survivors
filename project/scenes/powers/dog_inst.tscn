@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6okhq5nrt5n"]
+
+[ext_resource type="Script" path="res://scripts/dog_inst.gd" id="1_qmowi"]
+[ext_resource type="PackedScene" uid="uid://cm7y7xurriieg" path="res://assets/dog.glb" id="1_x7168"]
+
+[sub_resource type="Animation" id="Animation_dayp1"]
+resource_name = "spin"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("dog:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dog/dog:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(6.28319, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b5rjm"]
+_data = {
+"spin": SubResource("Animation_dayp1")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7vidt"]
+radius = 0.6
+
+[node name="inst" type="Node3D"]
+script = ExtResource("1_qmowi")
+
+[node name="dog" parent="." instance=ExtResource("1_x7168")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.845962, 0, 0)
+
+[node name="dog" parent="dog" index="0"]
+transform = Transform3D(0.1, 0, 0, 0, -0.0338139, -0.0941096, 0, 0.0941096, -0.0338139, -0.000188004, 0.381856, 0.00563677)
+
+[node name="rotate" type="AnimationPlayer" parent="dog/dog" index="0"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_b5rjm")
+}
+autoplay = "spin"
+
+[node name="Area3D" type="Area3D" parent="dog"]
+collision_layer = 12
+collision_mask = 9
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dog/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.461515, 0)
+shape = SubResource("SphereShape3D_7vidt")
+
+[connection signal="body_entered" from="dog/Area3D" to="." method="_on_area_3d_body_entered"]
+
+[editable path="dog"]

@@ -1,0 +1,191 @@
+[gd_scene load_steps=14 format=3 uid="uid://fqwxgiobjc0x"]
+
+[ext_resource type="PackedScene" uid="uid://b20rnffkuvd55" path="res://assets/ketchup.glb" id="1_fw6jc"]
+[ext_resource type="Script" path="res://scripts/ketchup_inst.gd" id="1_xr1j6"]
+[ext_resource type="AudioStream" uid="uid://7xcc5kchv315" path="res://audio/boom.ogg" id="3_wy3wv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6u6c"]
+size = Vector3(0.797852, 1, 1.24146)
+
+[sub_resource type="Animation" id="Animation_5to8b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ketchup/Cube:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.37579, 1.37579, 1.37579)]
+}
+
+[sub_resource type="Animation" id="Animation_6xjai"]
+resource_name = "spawn"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ketchup/Cube:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, -2, -2),
+"update": 0,
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(2, 2, 2), Vector3(1.37579, 1.37579, 1.37579)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"set_armed"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o88fe"]
+_data = {
+"RESET": SubResource("Animation_5to8b"),
+"spawn": SubResource("Animation_6xjai")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_h7oi8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hiubj"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_id8by"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:surface_material_override/0:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u6ct5"]
+resource_name = "explode"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"explode_finish"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, -0.5, 1),
+"update": 0,
+"values": [Vector3(0.01, 0.01, 0.01), Vector3(1.5, 1.5, 1.5), Vector3(2, 2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:surface_material_override/0:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.996078, 0.980392, 1), Color(1, 0.917647, 0, 1), Color(0.94902, 0.34902, 0.2, 0.690196), Color(0.337255, 0.337255, 0.337255, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sny7d"]
+_data = {
+"RESET": SubResource("Animation_id8by"),
+"explode": SubResource("Animation_u6ct5")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6r6mm"]
+radius = 0.8
+
+[node name="inst" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.018657, 0.038184)
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_xr1j6")
+
+[node name="ketchup" parent="." instance=ExtResource("1_fw6jc")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0748631, -0.435329)
+
+[node name="Cube" parent="ketchup" index="0"]
+transform = Transform3D(1.37579, 0, 0, 0, 1.37579, 0, 0, 0, 1.37579, 0, 0.394058, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00830078, 0.271452, -0.00280762)
+shape = SubResource("BoxShape3D_s6u6c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o88fe")
+}
+autoplay = "spawn"
+
+[node name="expl" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_h7oi8")
+surface_material_override/0 = SubResource("StandardMaterial3D_hiubj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="expl"]
+libraries = {
+"": SubResource("AnimationLibrary_sny7d")
+}
+speed_scale = 1.4
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="expl"]
+stream = ExtResource("3_wy3wv")
+volume_db = -9.0
+
+[node name="expl_area" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="expl_area"]
+shape = SubResource("SphereShape3D_6r6mm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+
+[editable path="ketchup"]

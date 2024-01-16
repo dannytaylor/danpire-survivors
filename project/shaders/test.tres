@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c5wl4w6kw7k3q"]
+
+[ext_resource type="Shader" path="res://shaders/test.gdshader" id="1_lqcv0"]
+
+[sub_resource type="Gradient" id="Gradient_vpv5j"]
+offsets = PackedFloat32Array(0.360656, 1)
+colors = PackedColorArray(0.227007, 0.615166, 0.918206, 1, 0.680525, 0.826139, 0.979569, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_krtnq"]
+gradient = SubResource("Gradient_vpv5j")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_lqcv0")
+shader_parameter/liquid_height = 0.67
+shader_parameter/liquid_surface_color = Color(0.600207, 0.817608, 0.870782, 1)
+shader_parameter/rim_emission_intensity = 1.0
+shader_parameter/rim_exponent = 3.0
+shader_parameter/emission_intensity = 0.5
+shader_parameter/liquid_surface_gradient_size = 0.1
+shader_parameter/wobble = Vector2(0, 0)
+shader_parameter/liquid_rim_gradient = SubResource("GradientTexture1D_krtnq")

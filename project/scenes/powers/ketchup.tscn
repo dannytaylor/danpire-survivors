@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://k3w1gr1m3udh"]
+
+[ext_resource type="Script" path="res://scripts/ketchup.gd" id="1_cu2mq"]
+[ext_resource type="AudioStream" uid="uid://by3q44i8qa38f" path="res://audio/packet.ogg" id="2_jfcdt"]
+
+[node name="ketchup" type="Node3D"]
+script = ExtResource("1_cu2mq")
+
+[node name="spawn_timer" type="Timer" parent="."]
+
+[node name="spawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_jfcdt")
+volume_db = -9.0
+
+[connection signal="timeout" from="spawn_timer" to="." method="_on_spawn_timer_timeout"]
