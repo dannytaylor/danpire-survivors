@@ -1,6 +1,7 @@
 extends Node3D
 
 var spawn_speed = 4.4
+var spawn_mult = 0.2
 var size_mult = 1.25
 var level = 0
 var dmg = 4.0
@@ -32,7 +33,7 @@ func spawn_packet():
 	
 
 func _on_spawn_timer_timeout():
-	spawn_timer.wait_time = clamp(spawn_speed-0.1*level,1.0,5.0)
+	spawn_timer.wait_time = clamp(spawn_speed-spawn_mult*level,0.5,5.0)
 	spawn_timer.start()
 	$spawn.play()
 	spawn_packet()

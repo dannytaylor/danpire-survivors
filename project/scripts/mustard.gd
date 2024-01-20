@@ -41,6 +41,11 @@ func spawn_mustard(target):
 func _process(delta):
 	mesh.scale = lerp(mesh.scale,mesh_scale,LERP_VAL)
 
+func get_random_enemy(enemies):
+	var pick = enemies.pick_random()
+	return pick.position
+	
+
 func get_nearest_enemy():
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	if enemies.size() == 0:
@@ -48,10 +53,14 @@ func get_nearest_enemy():
 		
 	var nearest_pos = null
 	var dist = null
+	
+	return get_random_enemy(enemies)
+	
 	for e in enemies:
-		if dist == null or dist > position.distance_to(e.position):
-			dist = position.distance_to(e.position)
-			nearest_pos = e.position
+		if e.hp > 0.0:
+			if dist == null or dist > position.distance_to(e.position):
+				dist = position.distance_to(e.position)
+				nearest_pos = e.position
 	return nearest_pos
 
 func _on_spawn_timer_timeout():

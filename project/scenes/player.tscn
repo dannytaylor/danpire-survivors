@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bub0s6h143gti"]
+[gd_scene load_steps=24 format=3 uid="uid://bub0s6h143gti"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bbye5"]
 [ext_resource type="Material" uid="uid://cctp0kf1ckkim" path="res://shaders/liquid.tres" id="2_ciocx"]
@@ -8,7 +8,6 @@
 [ext_resource type="Shader" path="res://shaders/outline2.gdshader" id="4_ymgkv"]
 [ext_resource type="Script" path="res://scripts/foot_ik_r.gd" id="5_p7uf2"]
 [ext_resource type="PackedScene" uid="uid://bxdvr1rgqwih" path="res://scenes/powers/dog.tscn" id="6_nvc0x"]
-[ext_resource type="PackedScene" uid="uid://c0dam4u7vsckq" path="res://scenes/powers/mustard.tscn" id="7_357i4"]
 [ext_resource type="PackedScene" uid="uid://k3w1gr1m3udh" path="res://scenes/powers/ketchup.tscn" id="8_2cw3o"]
 [ext_resource type="AudioStream" uid="uid://bxfmx8v620e4j" path="res://audio/oof.wav" id="8_bjarv"]
 [ext_resource type="AudioStream" uid="uid://hdw7fm0oi4ly" path="res://audio/death.ogg" id="9_vva03"]
@@ -213,8 +212,6 @@ autoplay = "float"
 
 [node name="dog" parent="powers" instance=ExtResource("6_nvc0x")]
 transform = Transform3D(0.106832, 0, 0.994277, 0, 1, 0, -0.994277, 0, 0.106832, 0, 0, 0)
-
-[node name="mustard" parent="powers" instance=ExtResource("7_357i4")]
 
 [node name="ketchup" parent="powers" instance=ExtResource("8_2cw3o")]
 

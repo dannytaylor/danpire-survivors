@@ -50,9 +50,9 @@ var can_dash = true
 var dash_invinc = false
 var dash_cooldown = 3.0
 var dash_mult = 0.8
-var dash_invinc_time = 0.3
-var dash_duration = 0.1
-var dash_speed_mult = 2.0
+var dash_invinc_time = 0.4
+var dash_duration = 0.02
+var dash_speed_mult = 4.0
 @onready var dash_timer = $powers/dash_timer
 @onready var dash_timeout = $powers/dash_timer/dash_timeout
 @onready var dash_invinc_timer = $powers/dash_timer/dash_invinc
@@ -65,7 +65,7 @@ func _unhandled_input(event):
 		powers.get_child(0).spawn_dog()
 		# xp+=50
 	if Input.is_action_just_pressed("debug2"):
-		take_dmg(50.0)
+		power_level('mustard')
 	
 	if Input.is_action_just_pressed("space"):
 		if power_levels['dash'] >= 1 and can_dash:
@@ -97,7 +97,8 @@ func move_feet(direction):
 
 func _physics_process(delta):
 	# Add the gravity.
-	body_mat.albedo_color = lerp(body_mat.albedo_color,Color.WHITE,LERP_VAL/2.0)
+	if not dash_invinc:
+		body_mat.albedo_color = lerp(body_mat.albedo_color,Color.WHITE,LERP_VAL/2.0)
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
@@ -169,16 +170,36 @@ func take_dmg(dmg):
 				die()
 		
 @onready var dog = $powers/dog
-@onready var mustard = $powers/mustard
+# @onready var mustard = $powers/mustard
 @onready var ketchup = $powers/ketchup
+@onready var powers_node = $powers
+
+const MUSTARD = preload("res://scenes/powers/mustard.tscn")
+var mustards = []
+
 func power_level(pow):
 	power_levels[pow] += 1
 	if pow == 'dog':
 		dog.spawn_dog()
 	elif pow == 'mustard':
-		mustard.level += 1
-		if power_levels[pow] == 1:
-			mustard.first_level()
+		var m_level = power_levels[pow]
+		if m_level == 1:
+			var m = MUSTARD.instantiate()
+			powers_node.add_child(m)
+			m.first_level()
+			mustards.append(m)
+		var f = 4
+		if m_level%f == 0:
+			var m = MUSTARD.instantiate()
+			powers_node.add_child(m)
+			m.first_level()
+			var spawn_fac = (m_level/f)
+			m.fire_speed = m.fire_speed*(spawn_fac+1)
+			m.fire_mult  = pow(m.fire_mult,1/spawn_fac)
+			mustards.append(m)
+		for m in mustards:
+			m.level = m_level
+		
 	elif pow == 'ketchup':
 		ketchup.level += 1
 		if power_levels[pow] == 1:

@@ -23,11 +23,12 @@ func _physics_process(delta):
 func _on_hit_box_body_entered(body):
 	if 'enemy' in body.get_groups():
 		# print('mustard hit')
-		body.take_dmg(dmg)
-		$hit.play()
-		$hit_box.monitoring = false
-		$hit_box.monitorable = false
-		visible = false
+		if body.hp > 0.0:
+			body.take_dmg(dmg)
+			$hit.play()
+			$hit_box.monitoring = false
+			$hit_box.monitorable = false
+			visible = false
 
 
 func _on_timer_timeout():

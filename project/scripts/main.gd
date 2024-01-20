@@ -17,7 +17,7 @@ var wave = 1
 var hp_mult = 1.2
 var speed_mult = 1.05
 var dmg_mult = 1.2
-var xp_mult = 0.9
+var xp_mult = 0.85
 
 @export var enemy_scene: PackedScene
 @onready var spawn_timer = $floor/spawn_path/spawn_timer
@@ -61,8 +61,8 @@ func _on_spawn_timer_timeout():
 	
 var powers_text = {
 	'dog': '+1 orbiting dogs, increased damage',
-	'mustard': 'shoot mustard, increase shoot rate and damage',
-	'ketchup': 'drop ketchup pack mines, increase dmg and aoe',
+	'mustard': 'shoot mustard; increase shoot rate and damage, +1 shooter per 4 levels',
+	'ketchup': 'drop ketchup pack mines; increase dmg and aoe, reduce cooldown',
 	'dash': 'quick dash (spacebar), reduce cooldown'
 }
 @onready var level_ui = $ui/level_up
